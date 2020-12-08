@@ -52,15 +52,16 @@ try:
         os.system("sudo apt-get update")
         os.system("sudo apt-get install dnsmasq -y")
         os.system("sudo apt-get install wireshark -y")
-        os.system("sudo apt-get install mitmproxy -y")
         os.system("sudo apt-get install hostapd -y")
         os.system("sudo apt-get install screen -y")
         os.system("sudo apt-get install wondershaper -y")
         os.system("sudo apt-get install driftnet -y")
         os.system("sudo apt-get install python-pip -y")
+        os.system("sudo apt-get install python3-pip -y")
+        os.system("sudo apt-get install python3-dev libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg62-turbo-dev zlib1g-dev -y")
         os.system("sudo apt-get install libpcap-dev -y")
+        os.system("sudo python3 -m pip install mitmproxy")
         os.system("sudo python -m pip install dnspython")
-        os.system("sudo python -m pip install mitmproxy")
         os.system("sudo python -m pip install pcapy")
         os.system("sudo python -m pip install twisted")
     #/UPDATING
@@ -188,9 +189,8 @@ try:
             i = 0
             while int(ssl_dns_num) != i:
                 ssl_dns_num_temp = i + 1
-                ssl_dns_domain = input("[?] " + str(ssl_dns_num_temp) + ". domain to spoof (no need for 'www.'): ")
+                ssl_dns_domain = input("[?] " + str(ssl_dns_num_temp) + ". domain to spoof: ")
                 ssl_dns_ip = input("[?] Fake IP for domain '" + ssl_dns_domain + "': ")
-                ssl_dns_domain = ssl_dns_domain.replace("www.", "")
                 ssl_dns_line = ssl_dns_domain + " " + ssl_dns_ip + "\n"
                 os.system("sudo echo -e '" + ssl_dns_line + "' >> "+ script_path + "src/dns2proxy/spoof.cfg")
                 i = i + 1
@@ -254,9 +254,8 @@ try:
             i = 0
             while int(dns_num) != i:
                 dns_num_temp = i + 1
-                dns_domain = input("[?] " + str(dns_num_temp) + ". domain to spoof (no need for 'www.'): ")
+                dns_domain = input("[?] " + str(dns_num_temp) + ". domain to spoof: ")
                 dns_ip = input("[?] Fake IP for domain '" + dns_domain + "': ")
-                dns_domain = dns_domain.replace("www.", "")
                 dns_line = "address=/" + dns_domain + "/" + dns_ip + "\n"
                 append_file("/etc/dnsmasq.conf", dns_line)
                 i = i + 1
